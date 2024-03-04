@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-color: #28a745; /* Updated to green color */
+            color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        .account-button {
+            background-color: #ffffff; /* Updated to white color */
+            color: #28a745; /* Updated to green color */
+            padding: 5px 10px;
+            border: 1px solid #28a745; /* Add border to make it look like a button */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer; /* Change cursor to pointer on hover */
+            display: inline-block; /* Add this to make the button inline */
+            position: relative;
+            text-decoration: none;
+        }
+        .account-button:hover {
+            background-color: #e6e6e6; /* Change background color on hover */
+        }
+        .cube {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ffffff; /* Updated to white color */
+            transform: rotate(45deg);
+            top: -10px;
+            left: calc(100% + 5px); /* Position the cube next to the account button */
+            z-index: 0; /* Behind the text */
+            display: none; /* Hide the cube by default */
+        }
+        .account-button:hover .cube {
+            display: block; /* Show the cube on hover */
+        }
+        .cube a {
+            color: #28a745; /* Updated to green color */
+            text-decoration: none;
+        }
+        .container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 20px;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<header>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div>
+        <a href="{% url 'app:home' %}">Home</a>
+{#        <a href="{% url 'account:account_site' %}">Account</a>#}
+        
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            <a class="account-button" >
+                <span><a href="{% url 'account:account_site' %}">{{ user.phone }}</a></span>
+                <div class="cube">
+                    <a href="{% url 'account:account_site' %}">Account</a>
+                </div> <!-- Cube added here -->
+            </a>
+            <a href="{% url 'account:logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'account:login' %}">Login</a>
+            <a href="{% url 'account:sign' %}">Sign Up</a>
+        {% endif %}
+    </div>
+</header>
+
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+<footer>
+    <p>&copy; </p>
+</footer>
+
+</body>
+</html>
+

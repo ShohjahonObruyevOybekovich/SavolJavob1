@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Ingliz tili  {% endblock %}
+
+{% block content %}
+    
+    <form method="post">{% csrf_token %}
+    
+    {% for question in questions %}
+        <hr>
+        <strong>{{ question.name }}</strong> <br>
+        <hr>
+        {% for answer in question.answer_set.all %}
+            
+            {{ answer.name }}{{ answer.is_correct }}
+            
+            <input type="radio" name="{{ question.name }}" value={{ answer.pk }}>
+            
+        {% endfor %}
+        <br><br>
+        
+    {% endfor %}
+    <br>
+    <br>
+    <button type="submit">yakunlash</button>
+    </form>
+    
+    
+{% endblock %}

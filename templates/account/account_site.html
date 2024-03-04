@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Account Information - My Website
+{% endblock %}
+
+{% block content %}
+<h1>Account Information</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" value="{{ user.phone }}" readonly><br><br>
+    
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" readonly><br><br>
+    
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="**********" readonly><br><br>
+    
+    <!-- You can add more fields here as needed -->
+    
+    <input type="submit" value="Edit">
+</form>
+{% endblock %}

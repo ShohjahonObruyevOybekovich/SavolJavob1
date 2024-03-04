@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load float_format %}
+{% block title %} Result{% endblock %}
+
+{% block content %}
+    
+    
+    
+    {{ result.user }}<br>
+    {{ result.category }}<br>
+    {{ result.total_question }}<br>
+    {{ result.total_correct }}<br>
+    {{ result.score|float_format:0 }}
+    
+    
+    
+    <a href="{% url 'home' %}">Home</a>
+    
+    
+{% endblock %}
